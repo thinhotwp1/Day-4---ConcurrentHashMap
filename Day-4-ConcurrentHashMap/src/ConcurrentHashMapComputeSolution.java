@@ -3,7 +3,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class ConcurrentHashMapAtomicSolution {
+public class ConcurrentHashMapComputeSolution {
     public static void main(String[] args) throws InterruptedException {
         /**
          * Bằng cách dùng compute(), ConcurrentHashMap đảm bảo rằng toàn bộ thao tác "lấy giá trị, tính toán, và cập nhật" cho key "counter"

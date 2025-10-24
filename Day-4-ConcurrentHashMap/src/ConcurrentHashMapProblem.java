@@ -43,6 +43,6 @@ public class ConcurrentHashMapProblem {
 
         // Kết quả sai, ví dụ 2251
         System.out.println("counter của ConcurrentHashMap khi không dùng hàm compute: " + counterMap.get("counter"));
-        // Xem ConcurrentHashMapAtomicSolution để thấy cách giải quyết vấn đề này
+        // Xem ConcurrentHashMapComputeSolution để thấy cách giải quyết vấn đề này
     }
 }

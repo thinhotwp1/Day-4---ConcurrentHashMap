@@ -1,9 +1,10 @@
+import utils.HashMapUtils;
+
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap; // <-- THAY ĐỔI Ở ĐÂY
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class ConcurrentHashMapSolution {
     public static void main(String[] args) throws InterruptedException {
@@ -33,6 +34,8 @@ public class ConcurrentHashMapSolution {
         System.out.println("Kích thước cuối cùng của ConcurrentHashMap: " + concurrentHashMap.size() + ", thời gian chạy của ConcurrentHashMap: " + time2 + " ns");
 
         System.out.println(" ---> ConcurrentHashMap nhanh hơn Hashtable ~ " + time1 / time2 + " lần");
+
+        // ==> Xem ConcurrentHashMapProblem để thấy vấn đề của ConcurrentHashMap
 
     }
 }

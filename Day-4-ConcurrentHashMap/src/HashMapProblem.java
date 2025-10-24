@@ -1,3 +1,5 @@
+import utils.HashMapUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -15,6 +17,6 @@ public class HashMapProblem {
         // Tệ hơn: Chương trình có thể bị treo hoặc văng ConcurrentModificationException
         System.out.println("Kích thước cuối cùng của HashMap: " + map.size());
 
-        // Xem ConcurrentHashMapSolution để thấy cách giải quyết vấn đề này
+        // ==> Xem ConcurrentHashMapSolution để thấy cách giải quyết vấn đề này
     }
 }
