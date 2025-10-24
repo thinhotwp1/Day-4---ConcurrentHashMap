@@ -1,3 +1,4 @@
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap; // <-- THAY ĐỔI Ở ĐÂY
 import java.util.concurrent.ExecutorService;
@@ -6,26 +7,32 @@ import java.util.concurrent.TimeUnit;
 
 public class ConcurrentHashMapSolution {
     public static void main(String[] args) throws InterruptedException {
-        // Dùng ConcurrentHashMap - Thread-safe
-        Map<Integer, String> map = new ConcurrentHashMap<>(); // <-- THAY ĐỔI Ở ĐÂY
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        /**
+         * Trước ConcurrentHashMap, Hashtable là giải pháp để tránh lỗi sai lệch của HashMap trong môi trường đa luồng
+         * Thay vì synchonized lock ở bucket, Hashtable chỉ đơn giản là lock toàn bộ node trong table và cho update tuần tự
+         * -> Điều này sẽ khiến performance tụt nghiêm trọng
+         */
 
-        try {
-            for (int i = 0; i < 10; i++) {
-                final int threadId = i;
-                executor.submit(() -> {
-                    for (int j = 0; j < 1000; j++) {
-                        int key = (threadId * 1000) + j;
-                        map.put(key, "Value-" + key);
-                    }
-                });
-            }
-        } finally {
-            executor.shutdown();
-            executor.awaitTermination(1, TimeUnit.MINUTES);
-        }
-
+        Map<Integer, String> hashtable = new Hashtable<>();
+        ExecutorService executorHashtable = Executors.newFixedThreadPool(10);
+        long start = System.nanoTime();
+        HashMapUtils.testPerformanceMap(hashtable, executorHashtable);
+        long end = System.nanoTime();
+        long time1 = end - start;
         // Kết quả LUÔN LUÔN là 10,000
-        System.out.println("Kích thước cuối cùng của ConcurrentHashMap: " + map.size());
+        System.out.println("Kích thước cuối cùng của Hashtable: " + hashtable.size() + ", thời gian chạy của Hashtable: " + time1 + " ns");
+
+
+        Map<Integer, String> concurrentHashMap = new ConcurrentHashMap<>();
+        ExecutorService executorConcurrentHashMap = Executors.newFixedThreadPool(10);
+        start = System.nanoTime();
+        HashMapUtils.testPerformanceMap(concurrentHashMap, executorConcurrentHashMap);
+        end = System.nanoTime();
+        long time2 = end - start;
+        // Kết quả LUÔN LUÔN là 10,000
+        System.out.println("Kích thước cuối cùng của ConcurrentHashMap: " + concurrentHashMap.size() + ", thời gian chạy của ConcurrentHashMap: " + time2 + " ns");
+
+        System.out.println(" ---> ConcurrentHashMap nhanh hơn Hashtable ~ " + time1 / time2 + " lần");
+
     }
 }

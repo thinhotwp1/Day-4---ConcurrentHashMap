@@ -19,7 +19,6 @@ public class ConcurrentHashMapProblem {
                      *
                      * Vấn đề (Cách làm sai): Giả sử chúng ta muốn 10 luồng cùng tăng một bộ đếm có key là "counter".
                      */
-                    // ... trong 10 luồng khác nhau ...
                     for (int j = 0; j < 1000; j++) {
                         int counter = counterMap.get("counter");
                         counterMap.put("counter", counter + 1);
@@ -43,7 +42,7 @@ public class ConcurrentHashMapProblem {
         }
 
         // Kết quả sai, ví dụ 2251
-        System.out.println("counter của ConcurrentHashMap khi không dùng biến hàm Atomic: " + counterMap.get("counter"));
+        System.out.println("counter của ConcurrentHashMap khi không dùng hàm compute: " + counterMap.get("counter"));
         // Xem ConcurrentHashMapAtomicSolution để thấy cách giải quyết vấn đề này
     }
 }
